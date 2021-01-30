@@ -7,36 +7,57 @@ using namespace std;
 
 int main()
 {
-	vector<char>colHead;
-	vector<char>colVal;
+	vector<string>colHead;
+	vector<string>colVal;
 
+	int countColHead  = 0;
+	int counter = 0;
 
-	ifstream file("try.pgn");
-	if (file.is_open()) {
+	string temp = "";
+	//ifstream inputFile("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
+	ifstream inputFile("try.pgn");
+	ofstream outFile("out.csv");
+
+	if (inputFile.is_open()) 
+	{
 		string line;
-		while (getline(file, line)) {
-			//cout<< line<<"\n";
-			int start = 0;
+		while (getline(inputFile, line)) 
+		{
 			
+			int start = 0;
+
 			if(line[start] == '[')
-			{	
+			{
+				temp = "" ;	
+				//countColHead = 0;
+
 				for(int start = 1; line[start] != '\0'; ++start)
 				{
 
 					while(line[start] != ' ')
 
-					{
-						colHead.push_back(line[start]);
+					{	
+						temp += line[start];
 
 						++start;
 
 					}
-					++start;	
-					while(line[start] != ']')
+					if(countColHead <=16)
 					{
-
-						colVal.push_back(line[start]);
+						colHead.push_back(temp);
 					}
+					++countColHead ;
+					++start;
+					temp = "" ;
+
+					while(line[start] != ']')
+
+					{	//cout<<line[start]<<" ";
+						temp += line[start];
+
+						++start;
+					}
+					colVal.push_back(temp);
 
 
 
@@ -44,10 +65,27 @@ int main()
 			}
 		}
 
-		file.close();
-
-
-
-
 	}
+	inputFile.close();
+
+	for(int i = 0; i != colHead.size(); ++i)
+	{
+		//cout<<colHead[i]<<"\n";
+		outFile<<colHead[i]<<',';
+	}
+	outFile<<"\n";
+	for(int i = 0; i != colVal.size(); ++i)
+	{
+		//cout<<colVal[i]<<"\n";
+		outFile<<colVal[i]<<',';
+		++counter;
+		if(counter == 17)
+		{
+			outFile<<"\n";
+			counter = 0;
+		}
+	}
+
+
 }
+
