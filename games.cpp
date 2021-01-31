@@ -10,13 +10,14 @@ int main()
 	vector<string>colHead;
 	vector<string>colVal;
 
-	int countColHead  = 0;
-	int counter = 0;
+	size_t countColHead  = 0;
+	size_t counter = 0;
 
 	string temp = "";
-	//ifstream inputFile("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
-	ifstream inputFile("try.pgn");
-	ofstream outFile("out.csv");
+ifstream inputFile("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
+	//	ifstream inputFile("try.pgn");
+//	ifstream inputFile("tail.pgn");
+	ofstream outFile("out.csv" ,ios::app);
 
 	if (inputFile.is_open()) 
 	{
@@ -24,14 +25,14 @@ int main()
 		while (getline(inputFile, line)) 
 		{
 			
-			int start = 0;
+			size_t start = 0;
 
 			if(line[start] == '[')
 			{
 				temp = "" ;	
 				//countColHead = 0;
 
-				for(int start = 1; line[start] != '\0'; ++start)
+				for(size_t start = 1; line[start] != '\0'; ++start)
 				{
 
 					while(line[start] != ' ')
@@ -42,10 +43,12 @@ int main()
 						++start;
 
 					}
-					if(countColHead <=16)
+					/*if(countColHead <=16)
 					{
 						colHead.push_back(temp);
-					}
+					}*/
+					
+					colHead.push_back(temp);
 					++countColHead ;
 					++start;
 					temp = "" ;
@@ -68,23 +71,32 @@ int main()
 	}
 	inputFile.close();
 
-	for(int i = 0; i != colHead.size(); ++i)
+	for(size_t i = 0; i != colHead.size(); ++i)
 	{
-		//cout<<colHead[i]<<"\n";
+	//	cout<<colHead[i]<<"\n";
 		outFile<<colHead[i]<<',';
+		/*++counter;
+		if(counter == 17)
+		{
+		
+	outFile<<"\n";
+	counter = 0;
+		}*/
+		
 	}
 	outFile<<"\n";
 	for(int i = 0; i != colVal.size(); ++i)
 	{
-		//cout<<colVal[i]<<"\n";
+	//	cout<<colVal[i]<<"\n";
 		outFile<<colVal[i]<<',';
-		++counter;
+		/*++counter;
 		if(counter == 17)
 		{
 			outFile<<"\n";
 			counter = 0;
-		}
+		}*/
 	}
+
 
 
 }
