@@ -11,10 +11,11 @@ using namespace std;
 int main()
 {
 	vector<string>colHead;
+	
+	//vector<pair<size_t , pair<string, string>>>colVal;
 	vector<pair<string, string>>colVal;
 	//map<string, string>colVal;
 
-	size_t countColHead  = 0;
 	size_t counter = 0;
 
 	string tempHead = "";
@@ -22,7 +23,7 @@ int main()
 
 	bool flag = false;
 
-	//ifstream inputFile("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
+//	ifstream inputFile("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
 	ifstream inputFile("test.pgn");
 	//	ifstream inputFile("tail.pgn");
 	ofstream outFile("out.csv" ,ios::app);
@@ -34,22 +35,20 @@ int main()
 		{
 
 			size_t start = 0;
+
+
 			if(line[start] == '[')
 			{
 				tempHead = "" ;	
 				tempVal = "" ;
 
-
 				for(size_t start = 1; start< line.length(); ++start)
 				{ 
 
 					while(line[start] != ' ')
-
 					{	
 						tempHead += line[start];
-
 						++start;
-
 					}
 					if(flag == true)
 					{
@@ -64,9 +63,7 @@ int main()
 								flag = false;	
 							}
 						}
-
 					}
-
 					if(flag == false)
 					{
 						colHead.push_back(tempHead);
@@ -75,8 +72,6 @@ int main()
 
 					++start;
 
-
-
 					while(line[start] != ']')
 
 					{	
@@ -84,12 +79,12 @@ int main()
 
 						++start;
 					}
+
 					//colVal.insert(pair<string, string> (tempHead, tempVal));
+					//colVal.push_back(make_pair(counter,  make_pair(tempHead, tempVal)));
 					colVal.push_back(make_pair(tempHead, tempVal));
 
 					break;
-
-
 				}
 				flag = true;
 			}
@@ -108,19 +103,29 @@ int main()
 	}
 	outFile<<"\n";
 
-	for(size_t i = 0; i != colVal.size(); ++i)
+	for(size_t j = 0; j != colHead.size(); ++j)
 	{
-		cout<<colVal[i].first<<" "<<colVal[i].second<<"\n";
-	/*	for(size_t i = 0; i != colHead.size(); ++i)
+		cout<<colVal[j].first<<" "<<colVal[j].second<<"\n";
+		for(size_t i = 0; i != colVal.size()  ; ++i)
 		{
-			if(colHead[i].compare(itr->first) == 0)
+			if( (colHead[j].compare(colVal[i].first) == 0))
 			{
-				outFile<<itr->second<<',';
+				outFile<<colVal[i].second<<',';
+				flag2 = false;
+				
 				break;
 			}
 			else
+			{
 				flag2 = true;
-		}*/
+			}
+			
+		}
+		if(flag2)
+		{
+			//cout<<"here";
+		outFile<<0<<"\n";
+		}
 	}
 
 
