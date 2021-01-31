@@ -12,11 +12,12 @@ int main()
 {
 	vector<string>colHead;
 	
-	//vector<pair<size_t , pair<string, string>>>colVal;
-	vector<pair<string, string>>colVal;
+	vector<pair<size_t , pair<string, string>>>colVal;
+	//vector<pair<string, string>>colVal;
 	//map<string, string>colVal;
 
 	size_t counter = 0;
+	vector<size_t> count;
 
 	string tempHead = "";
 	string tempVal = "";
@@ -68,8 +69,11 @@ int main()
 					{
 						colHead.push_back(tempHead);
 					}
-
-
+					if(tempHead == "Event")
+					{	
+						++counter;
+						count.push_back(counter);
+					}
 					++start;
 
 					while(line[start] != ']')
@@ -81,8 +85,8 @@ int main()
 					}
 
 					//colVal.insert(pair<string, string> (tempHead, tempVal));
-					//colVal.push_back(make_pair(counter,  make_pair(tempHead, tempVal)));
-					colVal.push_back(make_pair(tempHead, tempVal));
+					colVal.push_back(make_pair(counter,  make_pair(tempHead, tempVal)));
+					//colVal.push_back(make_pair(tempHead, tempVal));
 
 					break;
 				}
@@ -103,14 +107,15 @@ int main()
 	}
 	outFile<<"\n";
 
+for(size_t k = 1; k<= count.size(); ++k)
+{
 	for(size_t j = 0; j != colHead.size(); ++j)
 	{
-		cout<<colVal[j].first<<" "<<colVal[j].second<<"\n";
 		for(size_t i = 0; i != colVal.size()  ; ++i)
 		{
-			if( (colHead[j].compare(colVal[i].first) == 0))
+			if((colVal[i].first == k) && (colHead[j].compare(colVal[i].second.first) == 0))
 			{
-				outFile<<colVal[i].second<<',';
+				outFile<<colVal[i].second.second<<',';
 				flag2 = false;
 				
 				break;
@@ -124,11 +129,13 @@ int main()
 		if(flag2)
 		{
 			//cout<<"here";
-		outFile<<0<<"\n";
+		outFile<<"null"<<",";
 		}
 	}
+	if(true)
+	outFile<<"\n";
 
-
+}
 
 
 }
