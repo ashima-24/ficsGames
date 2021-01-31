@@ -3,6 +3,7 @@
 #include<fstream>
 #include<string>
 #include<map>
+#include<utility>
 
 
 using namespace std;
@@ -10,8 +11,8 @@ using namespace std;
 int main()
 {
 	vector<string>colHead;
-	//vector<string>colVal;
-	map<string, string>colVal;
+	vector<pair<string, string>>colVal;
+	//map<string, string>colVal;
 
 	size_t countColHead  = 0;
 	size_t counter = 0;
@@ -83,8 +84,8 @@ int main()
 
 						++start;
 					}
-					colVal.insert(pair<string, string> (tempHead, tempVal));
-
+					//colVal.insert(pair<string, string> (tempHead, tempVal));
+					colVal.push_back(make_pair(tempHead, tempVal));
 
 					break;
 
@@ -106,11 +107,10 @@ int main()
 
 	}
 	outFile<<"\n";
-	map<string, string>::iterator itr;
 
-	for(itr = colVal.begin(); itr != colVal.end(); ++itr)
+	for(size_t i = 0; i != colVal.size(); ++i)
 	{
-		cout<<itr->first<<" "<<itr->second<<"\n";
+		cout<<colVal[i].first<<" "<<colVal[i].second<<"\n";
 	/*	for(size_t i = 0; i != colHead.size(); ++i)
 		{
 			if(colHead[i].compare(itr->first) == 0)
