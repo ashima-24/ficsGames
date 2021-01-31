@@ -24,8 +24,8 @@ int main()
 
 	bool flag = false;
 
-//	ifstream inputFile("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
-	ifstream inputFile("test.pgn");
+	ifstream inputFile("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
+//	ifstream inputFile("test.pgn");
 	//	ifstream inputFile("tail.pgn");
 	ofstream outFile("out.csv" ,ios::app);
 
