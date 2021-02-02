@@ -17,9 +17,10 @@ string tempVal = "";
 
 bool flag = false;
 
-//ifstream inputFile("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
-ifstream inputFile("test.pgn");
-ifstream inputFile2("test.pgn");
+ifstream inputFile("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
+ifstream inputFile2("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
+//ifstream inputFile("test.pgn");
+//ifstream inputFile2("test.pgn");
 //	ifstream inputFile("tail.pgn");
 ofstream outFile("out.csv" ,ios::app);
 
@@ -98,7 +99,7 @@ void ficsGamesHeaders()
 		outFile<<colHead[i]<<',';
 
 	}
-	//outFile<<"\n";
+	outFile<<"\n";
 }
 
 void ficsGamesValues()
@@ -143,14 +144,15 @@ void ficsGamesValues()
 					if(tempHead == "Event")
 					{	 
 						++counter;
-						outFile<<"\n";
 						colVal.clear();
 		
 					}	
 
 					colVal.push_back(make_pair(counter,  make_pair(tempHead, tempVal)));
 
-					if(true)
+					if(tempHead == "Result")
+						update = true;
+					if(update)
 					{
 						for(size_t k = counter; k<= counter; ++k)
 						{
@@ -181,7 +183,7 @@ void ficsGamesValues()
 								outFile<<"\n";
 
 						}
-						
+						update = false;
 						//count.push_back(counter);
 					}
 					//colVal.insert(pair<string, string> (tempHead, tempVal));
