@@ -18,7 +18,7 @@ int main()
 	//PgnReader p("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
 	PgnReader p("try.pgn");
 	CsvFileWriter c("out.csv");
-	
+
 
 	ColumnMap m;
 
@@ -28,14 +28,14 @@ int main()
 	 *  max column value : 20 */
 	int count =  0;
 
- 	while (p.hasNext())
+	while (p.hasNext())
 	{
 		ChessGame g = p.getCurrentGame();
 		m.update(g);   // headers will be saved in m
 		c.write(g, m); // depending upon the write col header, will write in csv the values
-					   //ChessGame g2 = p.getCurrentGame();
+		//ChessGame g2 = p.getCurrentGame();
 	} 
-	
+
 
 
 }
