@@ -13,7 +13,8 @@ int main()
 	 *  3. Another object of png class to write to csv file
 	 *  */
 
-	PgnReader p("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
+	//PgnReader p("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
+	PgnReader p("dataset.pgn");
 
 	CsvFileWriter c("out.csv");
 
@@ -27,7 +28,7 @@ int main()
 		ChessGame g = p.getCurrentGame();
 		m.update(g);   // headers will be saved in m
 		c.write(g, m); // depending upon the write col header, will write in csv the values
-					   //ChessGame g2 = p.getCurrentGame();
+			//break;		   //ChessGame g2 = p.getCurrentGame();
 	} 
 
 

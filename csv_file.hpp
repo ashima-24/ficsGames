@@ -1,5 +1,5 @@
 #include<fstream>
-
+//#include "map.hpp"
 using namespace std;
 
 class CsvFileWriter
@@ -13,5 +13,7 @@ class CsvFileWriter
 			
 				outFile.open(filename, ofstream::app);
 			}	
-
+	void write(ChessGame g, ColumnMap m);
 };
+
+
