@@ -1,39 +1,32 @@
 #include<string>
-#include<vector>
-#include<fstream>
 
 using namespace std;
 
-class ChessGame
-{
-	public:
-		vector<pair<string, string>>colVal;
-};
-
 class PgnReader
 {
-
-	string tempHead = "";
-	string tempVal = "";
-
-	bool update  = false;
 
 	ifstream inputFile;
 
 public:
 	PgnReader(const string filename)
 		:	 inputFile() 
+		{
+				inputFile.open(filename);
+		}
+	
+	~PgnReader()
 	{
+		inputFile.close();
+		cout<<" Input file close";
 
-		inputFile.open(filename);
 	}
 
-	ChessGame getCurrentGame();
+	bool getCurrentGame(ChessGame &g);
 
 	bool hasNext();
 
-	ChessGame operator= (const PgnReader& p);
-};
+	
+	};
 
 bool PgnReader:: hasNext()
 {
@@ -41,13 +34,17 @@ bool PgnReader:: hasNext()
 	return (!(inputFile.eof()));
 }
 
-ChessGame PgnReader::  getCurrentGame()
+bool PgnReader:: getCurrentGame( ChessGame &g)
+
 {
-	ChessGame g;
 	string line;
 	
-	update = false;
+	string tempHead = "";
+	string tempVal = "";
 
+	bool update  = false;
+if (inputFile.is_open()) 
+{
 	while (getline(inputFile, line)) 
 	{
 		size_t start = 0;
@@ -82,14 +79,20 @@ ChessGame PgnReader::  getCurrentGame()
 				if(tempHead == "Result")
 					update = true;
 				
-				g.colVal.push_back(make_pair(tempHead, tempVal));
-
+				g.colVal.insert(make_pair(tempHead, tempVal));
+				//cout<<tempHead<<" "<<tempVal<<"\n";
+				
 				if(update)
-					return g;
+					return true;
 
 					break;
 			}
 		}
 	}
-
+	}
+	
+	 else 
+	{
+		return false;
+	}  
 }

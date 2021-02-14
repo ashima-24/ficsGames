@@ -2,28 +2,80 @@
 
 using namespace std;
 
-class CsvFileWriter
+class CsvStream
 {
-	ofstream outFile;
+	string store;
 	const string separator;
 
 	public: 
 
-	CsvFileWriter(const string filename, const string sep = ",")
-		: outFile(), separator(sep)
+	CsvStream(const string sep = ",")
+		: separator(sep)
+		{
+
+			
+		}	
+
+	CsvStream operator<< (const ChessGame& g);
+	
+	CsvStream operator<< (const ColumnMap& m);
+	//CsvStream operator<< (const T& m);
+
+
+};
+
+CsvStream CsvStream::operator<<( const ColumnMap& m)
+{
+	CsvStream cs;
+
+for (size_t i = 0; i < m.colHead.size() ; i++)
+	{
+		cs.store += m.colHead[i] ;
+		cs.store += ",";
+	}
+	cs.store += "\n";
+	cout<<cs.store;
+	return cs;
+
+
+}
+
+
+class FileWriter
+{
+	ofstream outFile;
+	
+
+	public: 
+
+	FileWriter(const string filename)
+		: outFile()
 		{
 
 			outFile.open(filename, ofstream::app);
 		}	
 
-	ChessGame operator<< (const ChessGame& g);
+		~ FileWriter()
+		{
+			cout<<" Output file close";
 
-	void headerWrite(ColumnMap &m);
+			outFile.close();
+		}
 
-	void write(ChessGame &g, ColumnMap &m);
+	FileWriter operator<<(const CsvStream &g);
+	
+		
 
 };
-void CsvFileWriter:: headerWrite(ColumnMap &m)
+/*  FileWriter FileWriter:: operator<<(const CsvStream &g)
+{
+	FileWriter fw;
+	fw.outFile<<g;
+	return fw;
+
+
+}    */
+/*  void CsvFileWriter:: headerWrite(ColumnMap &m)
 {
 
 	for (size_t i = 0; i < m.colHead.size() ; i++)
@@ -38,15 +90,7 @@ void CsvFileWriter:: write(ChessGame &g, ColumnMap &m)
 	bool flag2 = false;
 	size_t notNull = 0;
 
-	/* for(size_t k  = 0; k != m.colHead.size(); ++k)
-	{
-		
-		if(m.colHead[k].compare("null") != 0)
-			++notNull;
-
-
-	} */
-	
+	 
 	for(size_t j = 0; j <m.colHead.size(); ++j)
 	{		
 		for(size_t i = 0; i< g.colVal.size(); ++i)
@@ -75,5 +119,5 @@ void CsvFileWriter:: write(ChessGame &g, ColumnMap &m)
 		outFile<<"\n";
 
 	}
-}
 
+ */

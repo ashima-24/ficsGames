@@ -1,12 +1,14 @@
 #include <iostream>
-#include "pgn_parser.hpp"
+#include"chess.hpp"
 #include "map.hpp"
 #include "csv_file.hpp"
+#include "pgn_parser.hpp"
 
 
 using namespace std;
 
-int main()
+
+int main(int argc, char* argv[])
 
 {
 	/*  1. read pgn file file 
@@ -14,30 +16,55 @@ int main()
 	 *  3. Another object of pgn class to write to csv file
 	 *  */
 
-	PgnReader p("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
-	PgnReader p2("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
 
-	CsvFileWriter c("out.csv");
+	if (argc < 2)
+	
+	{
+		cerr<<"Not enough arguments";
+		return 1;
+	}
+	
+	PgnReader p(argv[1]);
+	PgnReader p2(argv[1]);
+	FileWriter c(argv[2]);
 	
 
+
 	ColumnMap m;
+	ChessGame g;
+	CsvStream cs;
 
 	/* key: column name,  value : csv col no 
 	 *  max column value : 20 */
 
 	while (p.hasNext())
 	{
-		 ChessGame g = p.getCurrentGame();
-		m.update(g);   // headers will be saved in m
-		//c.write(g, m); // depending upon the write col header, will write in csv the values
+		bool fileOpen = p.getCurrentGame( g);
+		if(fileOpen)
+		{
+			
+			m.update(g); // headers will be saved in m
+		}
+		fileOpen = false;
+		//c.write(g, m);  depending upon the write col header, will write in csv the values
 	} 
+	
+	cs<<m; // headers stored in string
+	// c<<cs;
+	
 
-	c.headerWrite(m); // headers write in csv
+	//c.headerWrite(m); 
 
 	while (p2.hasNext())
 	{
-		ChessGame g = p2.getCurrentGame();
-		c.write(g, m);
+		bool fileOpen = p2.getCurrentGame( g);	
+		if(fileOpen)
+		{
+			m.update(g);
+			  
+		}
+		
+			//c.write(g, m);
 
 	}
 	
