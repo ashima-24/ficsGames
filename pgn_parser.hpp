@@ -1,21 +1,15 @@
 #include<string>
 #include<vector>
 #include<fstream>
+#include<sstream>
 
 using namespace std;
 
 class ChessGame
 {
 	public:
-		//vector<pair<string, string>>colVal;
-		vector<pair<size_t , pair<string, string>>>colVal;
-
-
-		void display(vector<pair<string, string>>&temp)
-		{	cout<<"display "<<"\n";
-			for(int i = 0; i< temp.size(); ++i)
-				cout<<temp[i].first<<" "<<temp[i].second<<"\n";
-		}
+		vector<pair<string, string>>colVal;
+		//vector<pair<size_t , pair<string, string>>>colVal;
 
 };
 
@@ -43,9 +37,23 @@ class PgnReader
 
 	bool hasNext();
 
+	void csvRead();
+	PgnReader operator<<(const PgnReader& p);
+
 	ChessGame operator= (const PgnReader& p);
 };
 
+/* 
+void PgnReader::csvRead()
+{
+	string line;
+	while(getline(inputFile, line)
+	{
+
+	}
+
+
+}  */
 bool PgnReader:: hasNext()
 {
 
@@ -63,22 +71,22 @@ ChessGame PgnReader::  getCurrentGame()
 	while (getline(inputFile, line)) 
 	{
 		size_t start = 0;
-
-		if(line[start] == '[')
+		
+	if(line[start] == '[')
 		{
 			tempHead = "" ;	
 			tempVal = "" ;
 
 			for(size_t start = 1; start< line.length(); ++start)
 			{ 
-
+					
 				while(line[start] != ' ')
 				{	
 					tempHead += line[start];
 					++start;
 				}
 				++start;
-
+				
 				while(line[start] != ']')
 
 				{
@@ -94,17 +102,15 @@ ChessGame PgnReader::  getCurrentGame()
 				}
 				if(tempHead == "Result")
 					update = true;
-
-
-
-				//cout<<counter<<" ";
-				g.colVal.push_back(make_pair(count,  make_pair(tempHead, tempVal)));
-				//cout<<g.colVal[counter].first<<" "<<colVal[counter].second<<"\n";
-
-				//++counter;
+				
+				g.colVal.push_back(make_pair(tempHead, tempVal));
+				//g.colVal.push_back(make_pair(count,  make_pair(tempHead, tempVal)));
+				
 
 				if(update)
 					return g;
+
+					break;
 			}
 		}
 	}

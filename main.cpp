@@ -14,11 +14,11 @@ int main()
 	 *  3. Another object of pgn class to write to csv file
 	 *  */
 
-	//PgnReader p("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
-	//PgnReader p("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
-	PgnReader p("try.pgn");
-	CsvFileWriter c("out.csv");
+	PgnReader p("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
+	PgnReader old("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
 
+	CsvFileWriter c("out.csv");
+	CsvFileWriter newFile("out2.csv");
 
 	ColumnMap m;
 
@@ -26,16 +26,22 @@ int main()
 
 	/* key: column name,  value : csv col no 
 	 *  max column value : 20 */
-	int count =  0;
 
 	while (p.hasNext())
 	{
-		ChessGame g = p.getCurrentGame();
+		 ChessGame g = p.getCurrentGame();
 		m.update(g);   // headers will be saved in m
 		c.write(g, m); // depending upon the write col header, will write in csv the values
 		//ChessGame g2 = p.getCurrentGame();
 	} 
 
+	newFile.headerWrite(m); // headers write in different csv
 
+	while (old.hasNext())
+	{
+		ChessGame g = old.getCurrentGame();
+		newFile.write(g, m);
 
+	}
+	
 }
