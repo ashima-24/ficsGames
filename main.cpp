@@ -15,14 +15,12 @@ int main()
 	 *  */
 
 	PgnReader p("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
-	PgnReader old("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
+	PgnReader p2("ficsgamesdb_2020_chess_nomovetimes_184120.pgn");
 
 	CsvFileWriter c("out.csv");
-	CsvFileWriter newFile("out2.csv");
+	
 
 	ColumnMap m;
-
-	ChessGame cg;
 
 	/* key: column name,  value : csv col no 
 	 *  max column value : 20 */
@@ -31,16 +29,15 @@ int main()
 	{
 		 ChessGame g = p.getCurrentGame();
 		m.update(g);   // headers will be saved in m
-		c.write(g, m); // depending upon the write col header, will write in csv the values
-		//ChessGame g2 = p.getCurrentGame();
+		//c.write(g, m); // depending upon the write col header, will write in csv the values
 	} 
 
-	newFile.headerWrite(m); // headers write in different csv
+	c.headerWrite(m); // headers write in csv
 
-	while (old.hasNext())
+	while (p2.hasNext())
 	{
-		ChessGame g = old.getCurrentGame();
-		newFile.write(g, m);
+		ChessGame g = p2.getCurrentGame();
+		c.write(g, m);
 
 	}
 	

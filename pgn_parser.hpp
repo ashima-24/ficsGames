@@ -1,7 +1,6 @@
 #include<string>
 #include<vector>
 #include<fstream>
-#include<sstream>
 
 using namespace std;
 
@@ -9,15 +8,11 @@ class ChessGame
 {
 	public:
 		vector<pair<string, string>>colVal;
-		//vector<pair<size_t , pair<string, string>>>colVal;
-
 };
 
 class PgnReader
 {
 
-	size_t counter = 0;
-	size_t  count = 0;
 	string tempHead = "";
 	string tempVal = "";
 
@@ -25,7 +20,7 @@ class PgnReader
 
 	ifstream inputFile;
 
-	public:
+public:
 	PgnReader(const string filename)
 		:	 inputFile() 
 	{
@@ -37,23 +32,9 @@ class PgnReader
 
 	bool hasNext();
 
-	void csvRead();
-	PgnReader operator<<(const PgnReader& p);
-
 	ChessGame operator= (const PgnReader& p);
 };
 
-/* 
-void PgnReader::csvRead()
-{
-	string line;
-	while(getline(inputFile, line)
-	{
-
-	}
-
-
-}  */
 bool PgnReader:: hasNext()
 {
 
@@ -64,8 +45,7 @@ ChessGame PgnReader::  getCurrentGame()
 {
 	ChessGame g;
 	string line;
-	counter = 0; 
-
+	
 	update = false;
 
 	while (getline(inputFile, line)) 
@@ -96,7 +76,6 @@ ChessGame PgnReader::  getCurrentGame()
 				}
 				if(tempHead == "Event")
 				{	 
-					++count;
 					g.colVal.clear();
 
 				}
@@ -104,8 +83,6 @@ ChessGame PgnReader::  getCurrentGame()
 					update = true;
 				
 				g.colVal.push_back(make_pair(tempHead, tempVal));
-				//g.colVal.push_back(make_pair(count,  make_pair(tempHead, tempVal)));
-				
 
 				if(update)
 					return g;
