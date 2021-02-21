@@ -9,10 +9,10 @@ public:
 	void addColumn(string header, string values);
 	vector<string> getHeader();
 	vector<string> getValues();
-	vector<string>& retVal();
+	vector<string> &retVal();
 };
 
-vector<string>& ChessGame::retVal()
+vector<string> &ChessGame::retVal()
 {
 	return columnValues;
 }

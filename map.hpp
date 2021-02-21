@@ -19,7 +19,7 @@ void ColumnMap::mapping(ChessGame &g)
 	for (size_t i = 0; i < this->saveHeaders().size(); ++i)
 	{
 
-		for (size_t j = 0; j < g.getHeader().size(); j++)
+		for (size_t j = 0; j < g.getHeader().size(); ++j)
 		{
 
 			if ((this->saveHeaders()[i].compare(g.getHeader()[j]) == 0))

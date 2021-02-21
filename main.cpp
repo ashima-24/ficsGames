@@ -1,6 +1,8 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <sstream>
+
 #include <vector>
 
 #include <iterator>
@@ -29,10 +31,12 @@ int main(int argc, char *argv[])
 
 	PgnReader pgnRead(argv[1]);
 	FileWriter csvWrite(argv[2]);
+	FileWriter csvWrite2("out2.csv");
+	FileRead csvRead(argv[2]);
 
 	ColumnMap colMap;
 
-	CsvStream cstream;
+	CsvStream cstream, cstream2, cstream3;
 
 	/* key: column name,  value : csv col no 
 	 *  max column value : 20 */
@@ -55,7 +59,20 @@ int main(int argc, char *argv[])
 		fileOpen = false;
 		// depending upon the write col header, will write in csv the values
 	}
+	/* 	cstream2 << colMap;
+	csvWrite2 << cstream2;
 
-	/* cstream << colMap;
-			csvWrite << cstream; */
+	while (csvRead.hasNext())
+	{
+		
+		ChessGame g;
+		bool fileOpen = csvRead.getCsvRows(g);
+		if (fileOpen)
+		{
+			cstream3 << g;
+			csvWrite2 << cstream3;
+			// cout<<fileOpen<<"\n"; 
+		}
+	
+	} */
 }

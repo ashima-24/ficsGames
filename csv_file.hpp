@@ -93,3 +93,52 @@ FileWriter &FileWriter::operator<<(CsvStream &g)
 	this->outFile << "\n"; // new row for next game entries
 	return *this;
 }
+class FileRead
+{
+
+	ifstream inputFile;
+
+public:
+	FileRead(const string filename)
+		: inputFile()
+	{
+		inputFile.open(filename, ifstream::in);
+	}
+	~FileRead()
+	{
+		inputFile.close();
+		cout << " file read Input file close \n";
+	}
+	bool hasNext();
+
+	bool getCsvRows(ChessGame &g);
+};
+bool FileRead::hasNext()
+{
+
+	return (!(inputFile.eof()));
+}
+
+bool FileRead::getCsvRows(ChessGame &g)
+{
+
+	string line, word;
+
+	if (inputFile.is_open())
+	{
+
+		while (getline(inputFile, line))
+		{
+			stringstream s(line);
+			while (getline(s, word, ','))
+			{
+				g.retVal().push_back(word);
+			}
+			return true;
+		}
+	}
+	else
+	{
+		return false;
+	}
+}

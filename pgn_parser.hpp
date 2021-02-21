@@ -15,7 +15,7 @@ public:
 	~PgnReader()
 	{
 		inputFile.close();
-		cout << " Input file close";
+		cout << " pgn Input file close \n";
 	}
 
 	bool getCurrentGame(ChessGame &g);
