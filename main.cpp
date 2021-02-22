@@ -9,8 +9,10 @@
 
 #include "chess.hpp"
 #include "map.hpp"
+#include "csv_chess_game.hpp"
 #include "csv_file.hpp"
 #include "pgn_parser.hpp"
+
 
 using namespace std;
 
@@ -31,12 +33,12 @@ int main(int argc, char *argv[])
 
 	PgnReader pgnRead(argv[1]);
 	FileWriter csvWrite(argv[2]);
-	FileWriter csvWrite2("out2.csv");
-	FileRead csvRead(argv[2]);
+ 	FileWriter csvWrite2("out2.csv");
+	FileRead csvRead(argv[2]); 
 
 	ColumnMap colMap;
 
-	CsvStream cstream, cstream2, cstream3;
+	CsvStream cstream, cstream2;
 
 	/* key: column name,  value : csv col no 
 	 *  max column value : 20 */
@@ -51,28 +53,30 @@ int main(int argc, char *argv[])
 
 			colMap.update(g); // headers will be saved for that game
 
-			colMap.mapping(g);
+			CsvChessGame chess;
+			chess.mappingGame(g, colMap);
 
-			cstream << g;
+			cstream << chess;
 			csvWrite << cstream;
+			cout<<fileOpen<<"\n";
 		}
 		fileOpen = false;
 		// depending upon the write col header, will write in csv the values
 	}
-	/* 	cstream2 << colMap;
+	 	cstream2 << colMap;
 	csvWrite2 << cstream2;
 
 	while (csvRead.hasNext())
 	{
 		
-		ChessGame g;
+		CsvChessGame g;
 		bool fileOpen = csvRead.getCsvRows(g);
 		if (fileOpen)
 		{
-			cstream3 << g;
-			csvWrite2 << cstream3;
-			// cout<<fileOpen<<"\n"; 
+			cstream2 << g;
+			csvWrite2 << cstream2;
+			 cout<<"in"<<fileOpen<<"\n"; 
 		}
 	
-	} */
+	}  
 }

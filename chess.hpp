@@ -3,19 +3,16 @@ using namespace std;
 class ChessGame
 {
 	map<string, string> colVal;
-	vector<string> columnValues;
 
 public:
 	void addColumn(string header, string values);
+	
 	vector<string> getHeader();
 	vector<string> getValues();
-	vector<string> &retVal();
+	
 };
 
-vector<string> &ChessGame::retVal()
-{
-	return columnValues;
-}
+
 vector<string> ChessGame::getValues()
 {
 

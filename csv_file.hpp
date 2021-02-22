@@ -14,7 +14,8 @@ public:
 	}
 
 	CsvStream &operator<<(ColumnMap &m);
-	CsvStream &operator<<(ChessGame &g);
+	
+	CsvStream &operator<<(CsvChessGame &g);
 
 	//CsvStream& operator<< (const T& m);
 	string str();
@@ -28,10 +29,10 @@ CsvStream &CsvStream::operator<<(ColumnMap &m)
 {
 	this->store = "";
 
-	for (size_t i = 0; i < m.saveHeaders().size(); i++)
+	for (size_t i = 0; i < m.savedHeaders().size(); i++)
 	{
-		this->store += m.saveHeaders()[i];
-		if (i < (m.saveHeaders().size() - 1))
+		this->store += m.savedHeaders()[i];
+		if (i < (m.savedHeaders().size() - 1))
 		{
 			this->store += ",";
 		}
@@ -44,7 +45,7 @@ CsvStream &CsvStream::operator<<(ColumnMap &m)
 	return *this;
 }
 
-CsvStream &CsvStream::operator<<(ChessGame &g)
+CsvStream &CsvStream::operator<<(CsvChessGame &g)
 {
 	this->store = "";
 
@@ -111,7 +112,7 @@ public:
 	}
 	bool hasNext();
 
-	bool getCsvRows(ChessGame &g);
+	bool getCsvRows(CsvChessGame &g);
 };
 bool FileRead::hasNext()
 {
@@ -119,7 +120,7 @@ bool FileRead::hasNext()
 	return (!(inputFile.eof()));
 }
 
-bool FileRead::getCsvRows(ChessGame &g)
+bool FileRead::getCsvRows(CsvChessGame &g)
 {
 
 	string line, word;
