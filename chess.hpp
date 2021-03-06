@@ -6,24 +6,37 @@ class ChessGame
 
 public:
 	void addColumn(string header, string values);
-	
+
 	vector<string> getHeader();
-	vector<string> getValues();
-	
+	string getValues(string matchheader);
+
+	ChessGame()
+	{
+
+		/* for (int i = 0; i < 30; ++i)
+		{
+			this->colVal.insert(make_pair("null", "null"));
+		} */
+	}
 };
 
-
-vector<string> ChessGame::getValues()
+string ChessGame::getValues(string matchHeader)
 {
 
-	vector<string> values;
+	string matchedValue;
 	map<string, string>::iterator itr;
 
 	for (itr = this->colVal.begin(); itr != this->colVal.end(); ++itr)
 	{
-		values.push_back(itr->second);
+		if (matchHeader.compare(itr->first) == 0)
+		{
+			
+			matchedValue = itr->second;
+
+			break;
+		}
 	}
-	return values;
+	return matchedValue;
 }
 void ChessGame::addColumn(string header, string values)
 {

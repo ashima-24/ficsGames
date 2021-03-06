@@ -7,17 +7,24 @@ class ColumnMap
 public:
 	void update(ChessGame &g);
 
-	void mapping(ChessGame &g);
+	ColumnMap()
+	{
 
-	vector<string> savedHeaders();
+		for (int i = 0; i < 30; ++i)
+			;
+		//fill(colHead.begin(), colHead.end(), "null");
+	}
+
+	vector<string> savedHeaders()const;
 };
 
-vector<string> ColumnMap::savedHeaders()
+vector<string> ColumnMap::savedHeaders()const
 {
 	return colHead;
 }
 void ColumnMap::update(ChessGame &g)
 {
+
 	bool flag = false;
 
 	vector<string> header;

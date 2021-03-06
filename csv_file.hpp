@@ -13,9 +13,9 @@ public:
 	{
 	}
 
-	CsvStream &operator<<(ColumnMap &m);
-	
-	CsvStream &operator<<(CsvChessGame &g);
+	CsvStream &operator<<(const ColumnMap &m);
+
+	CsvStream &operator<<( const CsvChessGame &g);
 
 	//CsvStream& operator<< (const T& m);
 	string str();
@@ -25,7 +25,7 @@ string CsvStream::str()
 {
 	return this->store;
 }
-CsvStream &CsvStream::operator<<(ColumnMap &m)
+CsvStream &CsvStream::operator<<(const ColumnMap &m)
 {
 	this->store = "";
 
@@ -45,8 +45,9 @@ CsvStream &CsvStream::operator<<(ColumnMap &m)
 	return *this;
 }
 
-CsvStream &CsvStream::operator<<(CsvChessGame &g)
+ CsvStream &CsvStream::operator<<(const CsvChessGame &g)
 {
+	
 	this->store = "";
 
 	for (size_t i = 0; i < g.retVal().size(); ++i)
