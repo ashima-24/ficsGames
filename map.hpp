@@ -11,14 +11,15 @@ public:
 	{
 
 		for (int i = 0; i < 30; ++i)
-			;
-		//fill(colHead.begin(), colHead.end(), "null");
+		{
+			fill(colHead.begin(), colHead.end(), "null");
+		}
 	}
 
-	vector<string> savedHeaders()const;
+	vector<string> savedHeaders() const;
 };
 
-vector<string> ColumnMap::savedHeaders()const
+vector<string> ColumnMap::savedHeaders() const
 {
 	return colHead;
 }
@@ -26,6 +27,7 @@ void ColumnMap::update(ChessGame &g)
 {
 
 	bool flag = false;
+	size_t pos = 0;
 
 	vector<string> header;
 

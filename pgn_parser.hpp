@@ -18,18 +18,18 @@ public:
 		cout << " pgn Input file close \n";
 	}
 
-	bool getCurrentGame(ChessGame &g);
+	bool next(ChessGame &g);
 
-	bool hasNext();
+	bool hasNext() const;
 };
 
-bool PgnReader::hasNext()
+bool PgnReader::hasNext() const
 {
 
 	return (!(inputFile.eof()));
 }
 
-bool PgnReader::getCurrentGame(ChessGame &g)
+bool PgnReader::next(ChessGame &g)
 
 {
 	string line;

@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 	while (pgnRead.hasNext())
 	{
 		ChessGame g;
-		bool fileOpen = pgnRead.getCurrentGame(g);
+		bool fileOpen = pgnRead.next(g);
 
 		if (fileOpen)
 		{
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 	cstream2 << colMap;
 	csvWrite2 << cstream2;
 
-	/* 	while (csvRead.hasNext())
+	/* 		while (csvRead.hasNext())
 	{
 		
 		CsvChessGame g;
@@ -75,5 +75,5 @@ int main(int argc, char *argv[])
 			 cout<<"in"<<fileOpen<<"\n"; 
 		}
 	
-	}   */
+	}    */
 }

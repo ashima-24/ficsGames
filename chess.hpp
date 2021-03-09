@@ -9,33 +9,15 @@ public:
 
 	vector<string> getHeader();
 	string getValues(string matchheader);
-
-	ChessGame()
-	{
-
-		/* for (int i = 0; i < 30; ++i)
-		{
-			this->colVal.insert(make_pair("null", "null"));
-		} */
-	}
 };
 
 string ChessGame::getValues(string matchHeader)
 {
 
-	string matchedValue;
-	map<string, string>::iterator itr;
+	auto searchedVal = colVal.find(matchHeader);
 
-	for (itr = this->colVal.begin(); itr != this->colVal.end(); ++itr)
-	{
-		if (matchHeader.compare(itr->first) == 0)
-		{
-			
-			matchedValue = itr->second;
+	auto matchedValue = searchedVal->second;
 
-			break;
-		}
-	}
 	return matchedValue;
 }
 void ChessGame::addColumn(string header, string values)

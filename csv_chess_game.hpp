@@ -18,8 +18,7 @@ vector<string> CsvChessGame::retVal() const
 CsvChessGame::CsvChessGame(ChessGame &g, ColumnMap &m)
 {
     bool flag = false;
-    size_t pos = 0;
-
+    
     for (size_t i = 0; i < m.savedHeaders().size(); ++i)
     {
 
